@@ -1,0 +1,29 @@
+{
+  "name": "project-config",
+  "version": "0.1.0",
+  "description": "Module for project's configuration via json",
+  "homepage": "https://github.com/lltwox/project-config",
+  "keywords": [
+    "config",
+    "configuration",
+    "json"
+  ],
+  "author": "Alexander Golubev <lltwox@gmail.com>",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lltwox/project-config.git"
+  },
+  "scripts": {
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha --reporter dot"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "nconf": "^0.6.9",
+    "jsonminify": "^0.2.3"
+  },
+  "devDependencies": {
+    "mocha": "^1.18.2",
+    "should": "^3.3.1"
+  }
+}
