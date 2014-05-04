@@ -160,4 +160,4 @@ Create a deep copy of config object. There will be no links between old and new 
 Get value of the key. `:` is used for namespace separation. If no key provided, whole config will returned as object.
 
 ## Contributing
-Found a bug, have a feature request or want to add a pull request? All are welcome. Just to to issues and write it down.
+Found a bug, have a feature request or want to add a pull request? All are welcome. Just go to issues and write it down.

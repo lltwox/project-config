@@ -1,6 +1,6 @@
 {
   "name": "project-config",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Module for project's configuration via json",
   "homepage": "https://github.com/lltwox/project-config",
   "keywords": [
@@ -9,7 +9,7 @@
     "json"
   ],
   "author": "Alexander Golubev <lltwox@gmail.com>",
-  "main": "index.js",
+  "main": "./lib",
   "repository": {
     "type": "git",
     "url": "https://github.com/lltwox/project-config.git"
@@ -25,5 +25,8 @@
   "devDependencies": {
     "mocha": "^1.18.2",
     "should": "^3.3.1"
+  },
+  "engines" : {
+    "node" : ">=0.10"
   }
 }
