@@ -1,7 +1,6 @@
 var Config = require('../lib');
-require('should');
 
-describe('config.addEnv', function() {
+describe('Config.prototype.addEnv', function() {
     it('should add env variables to config', function() {
         var config = new Config();
         config.addEnv();
@@ -24,7 +23,7 @@ describe('config.addEnv', function() {
     });
 });
 
-describe('config.addArgv', function() {
+describe('Config.prototype.addArgv', function() {
     it('should add argv variables to config', function() {
         process.argv.push('--key=value');
         var config = new Config();
@@ -47,7 +46,7 @@ describe('config.addArgv', function() {
     });
 });
 
-describe('config.addSystem', function() {
+describe('Config.prototype.addSystem', function() {
     it('should add values from both argv and env', function() {
         process.env.envkey = 'envvalue';
         process.argv.push('--argvkey=argvvalue');

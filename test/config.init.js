@@ -1,7 +1,6 @@
 var Config = require('../lib');
-require('should');
 
-describe('config.init', function() {
+describe('Config.init', function() {
     var nodeEnvValue;
 
     beforeEach(function() {
@@ -74,7 +73,7 @@ describe('config.init', function() {
     });
 });
 
-describe('config.setBaseDir', function() {
+describe('Config.setBaseDir', function() {
     it('should set base dir for files to be loaded from', function() {
         Config.setBaseDir(__dirname + '/configs');
         var config = new Config('simple');
@@ -85,7 +84,7 @@ describe('config.setBaseDir', function() {
     });
 });
 
-describe('config.setEnv', function() {
+describe('Config.setEnv', function() {
     it('should set evironment suffix for loaded files', function() {
         Config.setEnv('development');
         var config = new Config('test/configs/simple');

@@ -7,7 +7,7 @@ project-config
 - Json-based configuration
 - Loading of config files' names can be controlled via environment
 - Config files for different environments can be stored in different directories
-- Via usage of add() and use() methods, application's configuration can be precisely tuned and even changed in runtime
+- Via usage of append() and prepend() methods, application's configuration can be precisely tuned and even changed in runtime
 - Thanks to [jsonminify](https://github.com/fkei/JSON.minify) config files can contain any comments needed to help undetstand meaning of the options
 - Can produce js literal object (object created with literal notaion, also called hash and so many other names), that can be used as configuration for any libraries and existing projects
 - Intented to be used at the start-up of application, so it is designed to be synchronous to simplify the code
@@ -66,7 +66,7 @@ var Config = require('project-config');
 Config.init();
 
 var config = new Config('app');
-config.add('defaults');
+config.prepend('defaults');
 
 console.log(config.get());
 ```
@@ -104,7 +104,7 @@ And when in production and running `node app --config-base-dir=configs --config-
 ## How to start
 1. Install it
 ```
-npm install --save project-config
+npm install project-config
 ```
 
 2. Require and use it
@@ -144,20 +144,26 @@ Adds all command-line arguments to current configuration. `:` is used as namespa
 ### Config.prototype.addSystem()
 Calls both addArgv() and addEnv()
 
-### Config.prototype.add(data, name)
+### Config.prototype.prepend(data, name)
 Add data to current config file. New values do not replace existing ones. `data` param follows same rules as described in constructor. `name` param is optional and gives a name for new store, so it can be removed later.
 
-### Config.prototype.use(data, name)
+### Config.prototype.append(data, name)
 Same as .add(), but new values replace existing ones.
+
+### Config.prototype.defaults(data)
+Add default storage, that always in front of all others. Only one default storage can exists, so more than one call to this method will overwrite previously added data.
 
 ### Config.prototype.remove(name)
 Remove previously added store by name.
 
-### Config.prototype.copy()
-Create a deep copy of config object. There will be no links between old and new one.
-
 ### Config.prototype.get(key)
 Get value of the key. `:` is used for namespace separation. If no key provided, whole config will returned as object.
 
+### Config.prototype.set(key, value)
+Set value for the key. `:` is used for namespace separation. Set always overwrites existing values.
+
+### Config.prototype.copy()
+Create a deep copy of config object. There will be no links between old and new one.
+
 ## Contributing
-Found a bug, have a feature request or want to add a pull request? All are welcome. Just go to issues and write it down.
+Found a bug, have a feature proposal or want to add a pull request? All are welcome. Just go to issues and write it down.

@@ -1,7 +1,6 @@
-var Config = require('../lib'),
-    should = require('should');
+var Config = require('../lib');
 
-describe('config.get', function() {
+describe('Config.prototype.get', function() {
     it('should return whole config as literal', function() {
         var config = new Config({
             key: 'value',
@@ -41,7 +40,7 @@ describe('config.get', function() {
     });
 });
 
-describe('config.copy', function() {
+describe('Config.prototype.copy', function() {
     it('should return copy of config', function() {
         var config = new Config({key: 'value'});
         config.copy().get().should.eql({key: 'value'});
@@ -67,12 +66,12 @@ describe('config.copy', function() {
     });
 });
 
-describe('config.remove', function() {
+describe('Config.prototype.remove', function() {
     it('should remove existing stores', function() {
         var config = new Config();
-        config.add({key: 'value'}, 'added-store');
+        config.prepend({key: 'value'}, 'added-store');
 
         config.remove('added-store');
-        should(config.get('key')).not.be.ok;
+        (config.get('key') === undefined).should.be.true;
     });
 });

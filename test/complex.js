@@ -1,26 +1,25 @@
-var Config = require('../lib'),
-    should = require('should');
+var Config = require('../lib');
 
-describe('Complex use-case: ', function() {
-    it('multiple add and use calls should work', function() {
+describe('Config complex use-case: ', function() {
+    it('multiple prepend and append calls should work', function() {
         var config = new Config();
 
-        config.use({
+        config.append({
             a: 10,
             b: 20
         });
 
-        config.add({
+        config.prepend({
             a: 11,
             c: 30
         });
 
-        config.use({
+        config.append({
             b: 19,
             d: 40
         });
 
-        config.add({
+        config.prepend({
             c: 31,
             e: 50
         });
@@ -32,25 +31,25 @@ describe('Complex use-case: ', function() {
         config.get('e').should.equal(50);
     });
 
-    it('multiple add and use with same stores should work', function() {
+    it('multiple prepend and append with same stores should work', function() {
         var config = new Config();
 
-        config.use({
+        config.append({
             a: 10,
             b: 20
         }, 'store-1');
 
-        config.add({
+        config.prepend({
             a: 11,
             c: 30
         }, 'store-1');
 
-        config.add({
+        config.prepend({
             c: 31,
             e: 50
         }, 'store-2');
 
-        config.use({
+        config.append({
             b: 19,
             d: 40
         }, 'store-2');
@@ -59,7 +58,7 @@ describe('Complex use-case: ', function() {
         config.get('b').should.equal(19);
         config.get('c').should.equal(30);
         config.get('d').should.equal(40);
-        should(config.get('e')).not.be.ok;
+        (config.get('e') === undefined).should.be.true;
     });
 
     it('reusing parts of config should work', function() {
@@ -82,21 +81,60 @@ describe('Complex use-case: ', function() {
             }
         });
 
-        config.add(config.get('defaults'));
+        config.prepend(config.get('defaults'));
 
-        config.use(config.get('app1'), 'app');
+        config.append(config.get('app1'), 'app');
         config.get('a').should.equal(11);
         config.get('b').should.equal(20);
         config.get('c').should.equal(30);
 
-        config.use(config.get('app2'), 'app');
+        config.append(config.get('app2'), 'app');
         config.get('a').should.equal(12);
         config.get('b').should.equal(22);
         config.get('c').should.equal(30);
 
-        config.use(config.get('app3'), 'app');
+        config.append(config.get('app3'), 'app');
         config.get('a').should.equal(10);
         config.get('b').should.equal(23);
         config.get('c').should.equal(33);
+    });
+
+    it('string values should overwrite objects', function() {
+        var config = new Config({
+            a: {
+                b: 10
+            }
+        });
+        config.append({
+            a: 'value'
+        });
+
+        config.get('a').should.equal('value');
+    });
+
+    it('object values should overwrite simple values', function() {
+        var config = new Config({
+            a: 'value'
+        });
+        config.append({
+            a: {
+                b: 10
+            }
+        });
+
+        config.get('a:b').should.equal(10);
+    });
+
+    it('complex objects should merge', function() {
+        var config = new Config({
+            a: 'value'
+        });
+        config.append({
+            a: {
+                b: 10
+            }
+        });
+
+        config.get('a:b').should.equal(10);
     });
 });

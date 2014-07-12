@@ -1,10 +1,9 @@
 var Config = require('../lib'),
     fs = require('fs'),
-    should = require('should'),
     os = require('os');
 
 
-describe('config.costructor', function() {
+describe('Config', function() {
     it('should load literal config objects', function() {
         var config = new Config({key: 'value'});
         config.get('key').should.equal('value');
@@ -40,6 +39,6 @@ describe('config.costructor', function() {
     it('should name default storage', function() {
         var config = new Config({key: 'value'});
         config.remove('main');
-        should(config.get('key')).not.be.ok;
+        (config.get('key') === undefined).should.be.true;
     });
 });
