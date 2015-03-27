@@ -71,6 +71,18 @@ describe('Config.init', function() {
         Config.unsetBaseDir();
         process.argv.pop();
     });
+
+    it('should add env suffix only if such file is available', function() {
+        process.env.CONFIG_ENV = 'production';
+
+        Config.init();
+        var config = new Config('test/configs/simple');
+        config.get('key').should.equal('value');
+
+        Config.unsetEnv();
+        Config.unsetBaseDir();
+        delete process.env.CONFIG_ENV;
+    });
 });
 
 describe('Config.setBaseDir', function() {
