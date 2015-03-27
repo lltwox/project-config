@@ -1,6 +1,6 @@
 {
   "name": "project-config",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "Module for project's configuration via json",
   "homepage": "https://github.com/lltwox/project-config",
   "keywords": [
