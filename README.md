@@ -121,11 +121,11 @@ Create configuration management class. Constructor accepts optional argument `da
 #### Data loading
 All methods, that loads new data accept one parameter, that can be either a string or an object.
 
-- A string, is treated as a path to config file to load. By default files is searched relative to current process's working directory (where node process was started) or by absolute path (if it was provided). `.json` suffix is not necessary.
+- A string, is treated as a path to config file to load. By default files is searched relative to current process's working directory (where node process was started) or by absolute path (if it was provided). `.json` suffix is not necessary. **Note**: as of 2.0.0, there are 3 files, that are tried for loading: file with suffix, set via `env` variable (see below), file without suffix, file with `defaults` suffix. All files, that are found are loaded automatically.
 - Object is simply added as is.
 
-### Config.setBaseDir(dir), Config.unsetBaseDir(dir), Config.setEnv(env), Config.unsetEnv(env)
-These four methods affect how and which files are loaded. There are two options: `base-dir` and `env`.
+### Config.getBaseDir(dir), Config.setBaseDir(dir), Config.unsetBaseDir(dir), Config.getEnv(env), Config.setEnv(env), Config.unsetEnv(env)
+These six methods affect how and which files are loaded. There are two options: `base-dir` and `env`.
 
 `base-dir` affects path, from where files are loaded. It can be used as a shortcut for all loaded config files by setting it to common prefix, i.e: `Config.setBaseDir('./configs/'); config.add('cluster');` will result in loading of `configs/cluster.json` file. Also it can be used to load all files from outside your git repository, which can be helpfull for productino environments.
 
