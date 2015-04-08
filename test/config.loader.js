@@ -1,7 +1,6 @@
 var Config = require('../lib');
 
 describe('Config.Loader', function() {
-
     it('should load and merge env file, normal and default files', function() {
         process.env.NODE_ENV = 'development';
 
@@ -13,5 +12,4 @@ describe('Config.Loader', function() {
 
         Config.unsetEnv();
     });
-
 });

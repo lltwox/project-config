@@ -21,6 +21,50 @@ describe('Config.prototype.addEnv', function() {
 
         delete process.env['test:key'];
     });
+
+    it('should support simple json values', function() {
+        process.env.test = 'true';
+
+        var config = new Config();
+        config.addEnv();
+
+        config.get('test').should.equal(true);
+
+        process.argv.pop();
+    });
+
+    it('should support complex json values', function() {
+        process.env.test = '{"key":"value"}';
+
+        var config = new Config();
+        config.addEnv();
+
+        config.get('test:key').should.equal('value');
+
+        process.argv.pop();
+    });
+
+    it('should respect prefix', function() {
+        process.env['pr:test'] = 12;
+
+        var config = new Config();
+        config.addEnv('pr');
+
+        config.get('test').should.equal(12);
+
+        process.argv.pop();
+    });
+
+    it('should respect alternative delimiter', function() {
+        process.env.pr__test = 12;
+
+        var config = new Config();
+        config.addEnv(null, '__');
+
+        config.get('pr:test').should.equal(12);
+
+        process.argv.pop();
+    });
 });
 
 describe('Config.prototype.addArgv', function() {
@@ -41,6 +85,50 @@ describe('Config.prototype.addArgv', function() {
         config.addArgv();
 
         config.get('test').key.should.equal('value');
+
+        process.argv.pop();
+    });
+
+    it('should support simple json values', function() {
+        process.argv.push('--test=true');
+
+        var config = new Config();
+        config.addArgv();
+
+        config.get('test').should.equal(true);
+
+        process.argv.pop();
+    });
+
+    it('should support complex json values', function() {
+        process.argv.push('--test={"key":"value"}');
+
+        var config = new Config();
+        config.addArgv();
+
+        config.get('test:key').should.equal('value');
+
+        process.argv.pop();
+    });
+
+    it('should respect prefix', function() {
+        process.argv.push('--pr:test=12');
+
+        var config = new Config();
+        config.addArgv('pr');
+
+        config.get('test').should.equal(12);
+
+        process.argv.pop();
+    });
+
+    it('should respect alternative delimiter', function() {
+        process.argv.push('--pr__test=12');
+
+        var config = new Config();
+        config.addArgv(null, '__');
+
+        config.get('pr:test').should.equal(12);
 
         process.argv.pop();
     });

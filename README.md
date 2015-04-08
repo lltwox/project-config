@@ -134,15 +134,17 @@ These six methods affect how and which files are loaded. There are two options: 
 ### Config.init()
 Reads `env`  value from from `--config-env` command line argument, `NODE_ENV` and `CONFIG_ENV` environment variables and `base-dir` value from `--config-base-dir` command line argument and `CONFIG_BASE_DIR` environment variable.
 
-### Config.prototype.addEnv()
+### Config.prototype.addEnv(prefix, delimiter)
 Adds all environment varibales to current configuration.
-`:` is used as namespace separator, i.e `test:key=value` will result in `{test:{key: value}}`
+`:` is used as namespace separator, i.e `test:key=value` will result in `{test:{key: value}}`. `prefix` allows for only part of keys to be loaded into config. All loaded keys will be stripped of prefix (test:key=value loaded with
+prefix=test will result in key=value in config). `delimiter` allows to specify
+alternative to `:` to use, when loading env values.
 
-### Config.prototype.addArgv()
-Adds all command-line arguments to current configuration. `:` is used as namespace separator.
+### Config.prototype.addArgv(prefix, delimiter)
+Adds all command-line arguments to current configuration. `:` is used as namespace separator. `prefix` and `delimiter` work the same as in addEnv().
 
 ### Config.prototype.addSystem()
-Calls both addArgv() and addEnv()
+Calls both addArgv() and addEnv().
 
 ### Config.prototype.prepend(data, name)
 Add data to current config file. New values do not replace existing ones. `data` param follows same rules as described in constructor. `name` param is optional and gives a name for new store, so it can be removed later.
