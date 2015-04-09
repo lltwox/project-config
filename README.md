@@ -7,7 +7,7 @@ project-config
 - Json-based configuration
 - Loading of config files' names can be controlled via environment
 - Config files for different environments can be stored in different directories
-- Via usage of append() and prepend() methods, application's configuration can be precisely tuned and even changed in runtime
+- Via usage of `append()` and `prepend()` methods, application's configuration can be precisely tuned and even changed in runtime
 - Thanks to [jsonminify](https://github.com/fkei/JSON.minify) config files can contain any comments needed to help undetstand meaning of the options
 - Can produce js literal object (object created with literal notaion, also called hash and so many other names), that can be used as configuration for any libraries and existing projects
 - Intented to be used at the start-up of application, so it is designed to be synchronous to simplify the code
@@ -21,16 +21,16 @@ configs
     app.development.json
     app.production.json
 ```
-Configs beeing:
-```json
+Configs being:
+```js
 // defaults.json
 {
     // database access parameters
     "db": {
-        "provider": "mysql"
+        "provider": "mysql",
         "host": "localhost",
         "port": "3306",
-        "database": "app"
+        "database": "app",
         "user": "app",
         "password": ""
     },
@@ -74,10 +74,10 @@ Running `node app --config-base-dir=configs --config-env=development` will resul
 ```json
 {
     "db": {
-        "provider": "mysql"
+        "provider": "mysql",
         "host": "localhost",
         "port": "3306",
-        "database": "appDev"
+        "database": "appDev",
         "user": "app",
         "password": ""
     },
@@ -89,10 +89,10 @@ And when in production and running `node app --config-base-dir=configs --config-
 ```json
 {
     "db": {
-        "provider": "mysql"
+        "provider": "mysql",
         "host": "...",
         "port": "3306",
-        "database": "app"
+        "database": "app",
         "user": "app",
         "password": "..."
     },
@@ -127,7 +127,7 @@ All methods, that loads new data accept one parameter, that can be either a stri
 ### Config.getBaseDir(dir), Config.setBaseDir(dir), Config.unsetBaseDir(dir), Config.getEnv(env), Config.setEnv(env), Config.unsetEnv(env)
 These six methods affect how and which files are loaded. There are two options: `base-dir` and `env`.
 
-`base-dir` affects path, from where files are loaded. It can be used as a shortcut for all loaded config files by setting it to common prefix, i.e: `Config.setBaseDir('./configs/'); config.add('cluster');` will result in loading of `configs/cluster.json` file. Also it can be used to load all files from outside your git repository, which can be helpfull for productino environments.
+`base-dir` affects path, from where files are loaded. It can be used as a shortcut for all loaded config files by setting it to common prefix, i.e: `Config.setBaseDir('./configs/'); config.add('cluster');` will result in loading of `configs/cluster.json` file. Also it can be used to load all files from outside your git repository, which can be helpfull for production environments.
 
 `env` affects suffix added to config filename. I.e: `Config.setEnv('test'); config.add('cluster');` will result in loading of `cluster.test.json` file.
 
@@ -141,16 +141,16 @@ prefix=test will result in key=value in config). `delimiter` allows to specify
 alternative to `:` to use, when loading env values.
 
 ### Config.prototype.addArgv(prefix, delimiter)
-Adds all command-line arguments to current configuration. `:` is used as namespace separator. `prefix` and `delimiter` work the same as in addEnv().
+Adds all command-line arguments to current configuration. `:` is used as namespace separator. `prefix` and `delimiter` work the same as in `addEnv()`.
 
 ### Config.prototype.addSystem()
-Calls both addArgv() and addEnv().
+Calls both `addArgv()` and `addEnv()`.
 
 ### Config.prototype.prepend(data, name)
 Add data to current config file. New values do not replace existing ones. `data` param follows same rules as described in constructor. `name` param is optional and gives a name for new store, so it can be removed later.
 
 ### Config.prototype.append(data, name)
-Same as .add(), but new values replace existing ones.
+Same as `add()`, but new values replace existing ones.
 
 ### Config.prototype.defaults(data)
 Add default storage, that always in front of all others. Only one default storage can exists, so more than one call to this method will overwrite previously added data.
@@ -168,4 +168,4 @@ Set value for the key. `:` is used for namespace separation. Set always overwrit
 Create a deep copy of config object. There will be no links between old and new one.
 
 ## Contributing
-Found a bug, have a feature proposal or want to add a pull request? All are welcome. Just go to issues and write it down.
+Found a bug, have a feature proposal or want to add a pull request? All are welcome. Just go to [issues](https://github.com/lltwox/project-config/issues) and write it down.
