@@ -1,6 +1,16 @@
-var Config = require('../lib');
+var Config = require('../lib'),
+    _ = require('lodash');
 
 describe('Config.prototype.addEnv', function() {
+
+    var oldEnv;
+    beforeEach(function() {
+        oldEnv = _.cloneDeep(process.env);
+    });
+    afterEach(function() {
+        process.env = oldEnv;
+    });
+
     it('should add env variables to config', function() {
         var config = new Config();
         config.addEnv();
