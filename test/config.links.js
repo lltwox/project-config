@@ -98,4 +98,13 @@ describe('Config', function() {
             config.get();
         }).should.throw();
     });
+
+    it('should allow escaping link with double @ character', function() {
+        var config = new Config({
+            key: 10,
+            key2: '@@key'
+        });
+
+        config.get('key2').should.equal('@key');
+    });
 });
