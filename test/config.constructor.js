@@ -33,7 +33,7 @@ describe('Config', function() {
         var config = new Config(tempfilename);
         config.get('key').should.equal('value');
 
-        fs.unlink(tempfilename);
+        fs.unlinkSync(tempfilename);
     });
 
     it('should name default storage', function() {

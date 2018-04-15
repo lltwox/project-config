@@ -8,7 +8,7 @@ project-config
 - Loading of config files' names can be controlled via environment
 - Config files for different environments can be stored in different directories
 - Via usage of `append()` and `prepend()` methods, application's configuration can be precisely tuned and even changed in runtime
-- Thanks to [jsonminify](https://github.com/fkei/JSON.minify) config files can contain any comments needed to help undetstand meaning of the options
+- Thanks to [JSON5](https://github.com/json5/json5) config files can contain any comments needed to help undetstand meaning of the options
 - Can produce js literal object (object created with literal notaion, also called hash and so many other names), that can be used as configuration for any libraries and existing projects
 - Intented to be used at the start-up of application, so it is designed to be synchronous to simplify the code
 
